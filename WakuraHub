@@ -1,0 +1,47 @@
+-- Run the external script first
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AlwaysLynnz/WakuraV2/main/DevAcces"))()
+
+-- Then create the loading UI
+
+local player = game.Players.LocalPlayer
+local TweenService = game:GetService("TweenService")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.5, 0, 0.3, 0)
+frame.Position = UDim2.new(0.25, 0, 0.35, 0)
+frame.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
+frame.BackgroundTransparency = 0.5
+frame.BorderSizePixel = 4
+frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+frame.Parent = screenGui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+textLabel.Text = "Script is loading. Please wait... -Wakura Hub On Top"
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+textLabel.TextSize = 24
+textLabel.TextWrapped = true
+textLabel.BackgroundTransparency = 1
+textLabel.Font = Enum.Font.SourceSans
+textLabel.Parent = frame
+
+local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+
+local function fadeText()
+    while true do
+        local fadeOut = TweenService:Create(textLabel, tweenInfo, {TextTransparency = 1})
+        fadeOut:Play()
+        fadeOut.Completed:Wait()
+        wait(0.5)
+        local fadeIn = TweenService:Create(textLabel, tweenInfo, {TextTransparency = 0})
+        fadeIn:Play()
+        fadeIn.Completed:Wait()
+        wait(0.5)
+    end
+end
+
+task.spawn(fadeText)
